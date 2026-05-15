@@ -1,0 +1,53 @@
+name: Deploy Quartz site to GitHub Pages
+ 
+on:
+  push:
+    branches:
+      - v4 
+ 
+permissions:
+  contents: write    # تم تغييرها من read إلى write لحل مشكلة git 128
+  pages: write
+  id-token: write
+ 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # حل تحذير Node.js 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0             
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24 # التحديث إلى النسخة الأحدث مباشرة
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Build Quartz
+        run: npx quartz build
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+ 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

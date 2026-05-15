@@ -1,0 +1,203 @@
+@use "./base.scss";
+
+// استهداف حاوية الملاحظات الأخيرة بدقة
+.recent-notes {
+  ul {
+    list-style: none !important; // إزالة النقاط التقليدية
+    padding: 0 !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // توزيع البطاقات بشكل مرن
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+
+    li {
+      background-color: var(--lightgray);
+      border-radius: 12px;
+      padding: 1.2rem;
+      border: 1px solid var(--dotted);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0 !important; // إزالة المسافات الافتراضية التي تسبب عدم المحاذاة
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        border-color: var(--tertiary);
+      }
+
+      // تنسيق الرابط (العنوان)
+      > a {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: var(--secondary);
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      // تنسيق التاريخ والبيانات
+      .meta {
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-bottom: 0.8rem;
+      }
+
+      // تنسيق الوسوم (Tags) لتظهر بشكل مصفوفة أنيقة داخل البطاقة
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        list-style: none;
+        padding: 0;
+
+        li {
+          background: transparent;
+          border: none;
+          padding: 0;
+          margin: 0;
+          
+          a {
+            background-color: var(--highlight);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+  .show-more {
+    display: block;
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background-color: var(--highlight); // لون مميز قليلاً عن بقية الكروت
+    border: 1px dashed var(--tertiary); // حدود مقطعة لتمييز أنه زر "إجراء"
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: right !important;
+    font-weight: bold;
+    color: var(--secondary);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: var(--tertiary);
+        color: var(--light);
+        transform: scale(1.02); // تأثير تكبير بسيط عند المرور
+    }
+
+    &::after {
+        content: " ➔"; // إضافة سهم جمالي
+    }
+    }
+}
+
+.section-ul {
+    display: grid !important;
+    background: transparent !important;
+    margin: 3px 3px 3px 3px !important;
+}
+
+.section-li {
+    display: block !important;
+    background: var(--lightgray) !important;
+    border-radius: 12px !important;
+    margin: 5px 5px 5px 5px !important;
+    padding: 10px !important;
+
+    &:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 8px 20px rgba(99, 114, 45, 0.2) !important;
+        border-color: var(--tertiary) !important;
+    }
+}
+
+.section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+}
+
+.pdf {
+    display: block !important;
+    justify-self: center !important;
+    width: 75% !important;
+    height: 700px !important; /* الارتفاع الذي تراه مناسباً للقراءة */
+    border-radius: 8px !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* لضمان عملها داخل المتصفحات التي تستخدم iframe */
+/*.internal-embed.pdf-embed iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 8px !important;
+}*/
+
+/* تحويل عنصر القائمة بالكامل إلى بطاقة واحدة */
+/*li.section-li, 
+[data-slug] .section-li li {
+    display: flex !important; /* لضمان احتواء العناصر داخل البطاقة */
+    /*flex-direction: column !important; /* ترتيب: عنوان ثم وسوم تحت بعضها */
+    /*align-items: flex-start !important; /* محاذاة النص لليمين/البداية */
+    /*background: var(--lightgray) !important;
+    border: 1px solid var(--dotted) !important;
+    border-radius: 12px !important;
+    margin-bottom: 1.0rem !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    text-align: right; /* لضمان اتجاه اللغة العربية */
+    //text-align: center;
+    //text-decoration: right !important;
+    //border-right: 5px solid var(--tertiary) !important;
+    /*padding: 5px !important;
+    //flex-direction: column !important; /* ترتيب العناصر عمودياً */
+    //gap: 1px !important; /* مسافة بسيطة بين العنوان والوسوم */
+/*}
+
+/* جعل الوسوم تصطف أفقياً وبأحجام صغيرة */
+/*[data-slug] .section-li li ul.tags {
+    display: flex !important;
+    flex-direction: column !important; /* هنا السحر: تصطف أفقياً */
+    /*flex-wrap: wrap !important; /* تنزل للسطر التالي إذا زاد العدد */
+    /*gap: 1px !important; /* مسافة بين كل وسم وآخر */
+    /*padding: 0 !important;
+    margin-top: 5px !important; /* إزاحة بسيطة تحت العنوان */
+    //margin: 5px 5px 5px 5px !important; /* إزاحة بسيطة تحت العنوان */
+    /*list-style: none !important;
+}
+
+/* تنسيق الوسم الفردي داخل البطاقة ليظهر كزر صغير */
+/*[data-slug] .section-li li ul.tags li {
+    
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline !important;
+    width: auto !important;
+}
+
+/* إزالة أي خلفيات سابقة كانت تظهر على الوسوم وحدها */
+/*.section-li li ul.tags li a,
+.section-li li .tags a {
+    background: var(--highlight) !important;
+    color: var(--secondary) !important;
+    padding: 2px 5px !important;
+    border-radius: 3px !important;
+    font-size: 0.75rem !important; /* تصغير الحجم ليتناسب مع العرض الأفقي */
+    //border: none !important;
+    /*box-shadow: none !important;
+    border: 1px solid rgba(var(--tertiary-rgb), 0.2) !important;
+}
+
+/* عندما تمرر الفأرة فوق البطاقة بالكامل */
+/*.section-li li:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+    background: var(--light) !important;
+}*/
