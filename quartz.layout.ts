@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { SimpleSlug } from "./quartz/util/path"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -8,8 +9,9 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      Instagram: "https://www.instagram.com/saeedal7mmadi/",
+      X: "https://x.com/saeedal7mmadi",
+      LinkedIn: "https://www.linkedin.com/in/saeedal7mmadi/",
     },
   }),
 }
@@ -19,11 +21,26 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) => page.fileData.slug !== "SAW STORY",
     }),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
     Component.TagList(),
+    Component.ContentMeta({
+      showReadingTime: false, 
+    }),
+    Component.Graph(),
+    /*Component.RecentNotes({
+      title: "آخر شظايا الوعي",
+      limit: 7, 
+      // اجعل الرابط يذهب للمجلد مباشرة
+      linkToMore: "عالم-فكري/مقالات/" as SimpleSlug,
+      filter: (f) => 
+        // استخدام includes أضمن دائماً مع المجلدات في Quartz
+        (f.filePath?.includes("مقالات") ?? false) &&
+        // التأكد من استبعاد أي صفحة فهرس داخل المجلد إذا وجدت
+        f.slug !== "index" &&
+        !f.frontmatter?.tags?.includes("أرشفة"),
+    }),*/
   ],
   left: [
     Component.PageTitle(),
@@ -41,9 +58,8 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Explorer(),
   ],
   right: [
-    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
+    //Component.Backlinks(),
   ],
 }
 

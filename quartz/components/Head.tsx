@@ -27,6 +27,9 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
 
+    // const hiddenID = "\u8155B\u81554C\u81554D"; // هذه رموز مخفية تماماً لا تظهر عند اللصق
+    // const copyBody = selectedText + hiddenID;
+
     // Url of current page
     const socialUrl =
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
@@ -38,6 +41,28 @@ export default (() => {
 
     return (
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            // رموز مخفية تماماً (Zero-Width Space + Zero-Width Joiner)
+            const watermark = "\\u81554B\\u81554C\\u81554D"; 
+            
+            document.addEventListener("copy", (e) => {
+              const selection = window.getSelection();
+              if (!selection || selection.rangeCount === 0) return;
+
+              const selectedText = selection.toString();
+              if (selectedText.length === 0) return;
+
+              // دمج النص مع الشفرة المخفية
+              const copyBody = selectedText + watermark;
+
+              if (e.clipboardData) {
+                e.clipboardData.setData("text/plain", copyBody);
+                e.preventDefault();
+              }
+            });
+          })();
+        `}} />
         <title>{title}</title>
         <meta charSet="utf-8" />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
