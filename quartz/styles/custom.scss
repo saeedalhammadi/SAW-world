@@ -151,6 +151,21 @@
   }
 }
 
+// إخفاء القوائم الجانبية تماماً في شاشات الجوال (أقل من 768 بكسل)
+@media (max-width: 767px) {
+  .sidebar.left, 
+  .sidebar.right,
+  .popover { 
+    display: none !important; 
+  }
+  
+  // جعل محتوى الصفحة الرئيسي يأخذ كامل عرض الشاشة دون حواف زائدة
+  .center {
+    width: 100% !important;
+    padding: 0 1rem !important;
+  }
+}
+
 /* لضمان عملها داخل المتصفحات التي تستخدم iframe */
 /*.internal-embed.pdf-embed iframe {
     width: 100% !important;
