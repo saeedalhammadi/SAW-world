@@ -130,6 +130,27 @@
     background: transparent !important;
 }
 
+// تكبير حاوية الخريطة التفاعلية
+.graph-outer {
+  min-height: 450px; // زيادة الحد الأدنى للارتفاع (الافتراضي غالباً يكون أصغر)
+  height: 60vh;      // جعل الارتفاع يأخذ 60% من ارتفاع شاشة العرض الحالية
+  width: 100%;       // جعل العرض كاملاً وممتداً
+  margin: 1rem 0;
+}
+
+// ضبط أبعاد الخريطة الداخلية لتملأ الحاوية الجديدة بالكامل
+.graph-container {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+// تحسين العرض على الشاشات الكبيرة (الكمبيوتر) ليأخذ مساحة أوسع
+@media (min-width: 1200px) {
+  .graph-outer {
+    height: 70vh; // جعلها أكبر وأكثر وضوحاً على الشاشات الكبيرة
+  }
+}
+
 /* لضمان عملها داخل المتصفحات التي تستخدم iframe */
 /*.internal-embed.pdf-embed iframe {
     width: 100% !important;
