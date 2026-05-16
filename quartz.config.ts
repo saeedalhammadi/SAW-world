@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "ar-AE",
     baseUrl: "sawinstory.com",
-    // baseDir: "content",
+    baseDir: "content",
     // generateRSS: true,
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
