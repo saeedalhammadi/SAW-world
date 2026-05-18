@@ -166,6 +166,24 @@
   }
 }
 
+// إجبار المتصفح على رندرة الألوان الداكنة دائماً لمنع الوميض الأبيض أثناء التحميل
+:root {
+  color-scheme: dark !important;
+}
+
+// إخفاء أيقونة التبديل بين الوضع الليلي والنهاري (الشمس والقمر) تماماً
+.darkmode {
+  display: none !important;
+}
+
+// تعديل لضمان ثبات الخلفية والنصوص الداكنة حتى لو حاول نظام التشغيل فرض الوضع الفاتح
+body {
+  background-color: var(--dark) !important;
+  color: var(--light) !important;
+}
+
+
+
 /* لضمان عملها داخل المتصفحات التي تستخدم iframe */
 /*.internal-embed.pdf-embed iframe {
     width: 100% !important;
